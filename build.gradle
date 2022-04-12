@@ -1,0 +1,56 @@
+import javax.tools.JavaCompiler
+
+defaultTasks 'clean', 'test', 'aggregate'
+
+apply plugin: 'java'                                    // Java
+apply plugin: 'idea'                                    // IntelliJ
+apply plugin: 'net.serenity-bdd.aggregator'             // Serenity BDD
+apply plugin: "net.serenity-bdd.serenity-gradle-plugin" // Serenity BDD for Gradle
+
+group 'io.saleor.demo'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "net.serenity-bdd:serenity-gradle-plugin:3.2.1"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'io.cucumber: cucumber-core: 6.11.0'
+    }
+}
+
+dependencies {
+    // Dependencies from https://mvnrepository.com/ & https://serenity-bdd.github.io/theserenitybook/latest/
+    implementation group: 'net.serenity-bdd', name: 'serenity-core', version: '2.6.0'
+    implementation group: 'net.serenity-bdd', name: 'serenity-cucumber6', version: '2.6.0'
+    implementation group: 'net.serenity-bdd', name: 'serenity-junit', version: '2.6.0'
+    implementation group: 'net.serenity-bdd', name: 'serenity-screenplay', version: '2.6.0'
+    implementation group: 'net.serenity-bdd', name: 'serenity-screenplay-webdriver', version: '2.6.0'
+    implementation group: 'net.serenity-bdd', name: 'serenity-ensure', version: '2.6.0'
+}
+
+test {
+    systemProperties System.getProperties()
+    systemProperty 'file-encoding', 'UTF-8'
+    testLogging.showStandardStreams = true
+    finalizedBy(aggregate)
+}
