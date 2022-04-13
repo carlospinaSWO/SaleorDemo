@@ -6,9 +6,9 @@ import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
-        glue = {"io.saleor.demo.stepdefinitions"},
-        features = {"src/test/resources/features/cart.feature"},
-        tags = ""
+    glue = {"io.saleor.demo.stepdefinitions"},
+    features = {"src/test/resources/features/cart.feature"},
+    tags = ""
 )
 
 public class CartRunner {

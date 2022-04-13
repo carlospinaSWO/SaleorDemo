@@ -16,8 +16,8 @@ public class Product implements Question<Boolean> {
 
         actor.attemptsTo(
             WaitUntil.the(ProductNameOnCart, isVisible()).forNoMoreThan(10).seconds(),
-            Ensure.that(ProductNameOnCart).hasText(actor.recall("chosenProduct"))
-            //Ensure.that(ProductPriceOnCart).hasText(actor.recall("productPrice"))
+            Ensure.that(ProductNameOnCart).hasText(actor.recall("chosenProduct")),
+            Ensure.that(ProductPriceOnCart).hasText(actor.recall("productPrice"))
         );
 
         if(!actor.recall("chosenSubcategory").equals("Alcohol")) {
