@@ -39,7 +39,7 @@ public class Add implements Task {
             Click.on(AddButton.resolveFor(actor))
         );
 
-        //actor.remember("productPrice", ProductPrice.resolveFor(actor).getText());
+        actor.remember("productPrice", ProductPrice.resolveFor(actor).getText());
     }
 
     public static Add theProductWith(DataTable data) {
